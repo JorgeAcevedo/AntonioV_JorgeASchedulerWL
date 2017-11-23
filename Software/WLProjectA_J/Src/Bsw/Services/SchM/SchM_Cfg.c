@@ -7,7 +7,7 @@
  * $Source: SchM_Cfg.c $
  * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017$
+ * $Date: 23/11/2017$
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -31,7 +31,10 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |                                   */
+/*Jorge Acevedo      |          1         |Fill task descriptor with task info*/
+/*----------------------------------------------------------------------------*/
+/*Jorge Acevedo      |          2         |Fill task descriptor with 1ms task */
+/*                   |                    |info                               */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -65,41 +68,12 @@
 const SchM_TaskConfigType TaskDescriptor[]=
 {
 		{
-				SCHM_TASKID_3P125MS,
-				SCHM_MASK_3P125MS,
-				SCHM_OFFSET_3P125MS,
-				SchM_3p125ms_Task
-		},
-		{
-				SCHM_TASKID_6P25MS,
-				SCHM_MASK_6P25MS,
-				SCHM_OFFSET_6P25MS,
-				SchM_6p25ms_Task
-		},
-		{
-				SCHM_TASKID_12P5MS,
-				SCHM_MASK_12P5MS,
-				SCHM_OFFSET_12P5MS,
-				SchM_12p5ms_Task
-		},
-		{
-				SCHM_TASKID_25MS,
-				SCHM_MASK_25MS,
-				SCHM_OFFSET_25MS,
-				SchM_25ms_Task
-		},
-		{
-				SCHM_TASKID_50MS,
-				SCHM_MASK_50MS,
-				SCHM_OFFSET_50MS,
-				SchM_50ms_Task
-		},
-		{
-				SCHM_TASKID_100MS,
-				SCHM_MASK_100MS,
-				SCHM_OFFSET_100MS,
-				SchM_100ms_Task
-		}			
+				SCHM_TASKID_1MS,
+				SCHM_MASK_1MS,
+				SCHM_OFFSET_1MS,
+				SchM_1ms_Task
+		}
+
 
 };
 
