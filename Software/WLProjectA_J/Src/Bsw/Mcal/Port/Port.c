@@ -72,45 +72,57 @@
 /* Private functions */
 /*============================================================================*/
 void PORT_init (void) {
-  //------------------PORTB
+  //------------------PORTB----------------------------------------------------
+  //OUTPUTS********************************************************************
   PCC-> PCCn[PCC_PORTB_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT B */
-  //Initialize PIN6P25MS
-  PTB->PDDR |= 1<<PIN6P25MS; /* Port D0: Data Direction= output */
-  PORTB->PCR[PIN6P25MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTB->PCOR |= 1<<PIN6P25MS; /* Clear pin*/
-  //Initialize PIN12P5MS
-  PTB->PDDR |= 1<<PIN12P5MS; /* Port D0: Data Direction= output */
-  PORTB->PCR[PIN12P5MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTB->PCOR |= 1<<PIN12P5MS; /* Clear pin*/
-  //Initialize PIN25MS
-  PTB->PDDR |= 1<<PIN25MS; /* Port D0: Data Direction= output */
-  PORTB->PCR[PIN25MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTB->PCOR |= 1<<PIN25MS; /* Clear pin*/
-  //Initialize PIN50MS
-  PTB->PDDR |= 1<<PIN50MS; /* Port D0: Data Direction= output */
-  PORTB->PCR[PIN50MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTB->PCOR |= 1<<PIN50MS; /* Clear pin*/
+  //Initialize LED8
+  PTB->PDDR |= 1<<LED8; /* Port D0: Data Direction= output */
+  PORTB->PCR[LED8] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTB->PCOR |= 1<<LED8; /* Clear pin*/
+  //Initialize LED7
+  PTB->PDDR |= 1<<LED7; /* Port D0: Data Direction= output */
+  PORTB->PCR[LED7] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTB->PCOR |= 1<<LED7; /* Clear pin*/
+  //Initialize LED6
+  PTB->PDDR |= 1<<LED6; /* Port D0: Data Direction= output */
+  PORTB->PCR[LED6] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTB->PCOR |= 1<<LED6; /* Clear pin*/
+  //Initialize LED5
+  PTB->PDDR |= 1<<LED5; /* Port D0: Data Direction= output */
+  PORTB->PCR[LED5] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTB->PCOR |= 1<<LED5; /* Clear pin*/
 
-  //------------------PORTC
+  //------------------PORTC------------------------------------------------------
+  //OUTPUTS********************************************************************
 	PCC-> PCCn[PCC_PORTC_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
-  //Initialize PIN3P125MS
-  PTC->PDDR |= 1<<PIN3P125MS; /* Port D0: Data Direction= output */
-	PORTC->PCR[PIN3P125MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-	PTD->PCOR |= 1<<PIN3P125MS; /* Clear pin*/
-  //Initialize PIN100MS
-  PTC->PDDR |= 1<<PIN100MS; /* Port D0: Data Direction= output */
-	PORTC->PCR[PIN100MS] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-	PTD->PCOR |= 1<<PIN100MS; /* Clear pin*/
-  //------------------PORTE
-	PCC-> PCCn[PCC_PORTE_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
-  //Initialize BKG
-  PTE->PDDR |= 1<<PINBKG; /* Port D0: Data Direction= output */
-	PORTE->PCR[PINBKG] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTE->PCOR |= 1<<PINBKG; /* Clear pin*/
-  //Initialize OVERLOAD
-  PTE->PDDR |= 1<<PINOVERLOAD; /* Port D0: Data Direction= output */
-	PORTE->PCR[PINOVERLOAD] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
-  PTE->PCOR |= 1<<PINOVERLOAD; /* Clear pin*/
+  //Initialize LED9
+  PTC->PDDR |= 1<<LED9; /* Port D0: Data Direction= output */
+  PORTC->PCR[LED9] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PCOR |= 1<<LED9; /* Clear pin*/
+  //Initialize LED4
+  PTC->PDDR |= 1<<LED4; /* Port D0: Data Direction= output */
+  PORTC->PCR[LED4] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PCOR |= 1<<LED4; /* Clear pin*/
+  //Initialize LED3
+  PTC->PDDR |= 1<<LED3; /* Port D0: Data Direction= output */
+  PORTC->PCR[LED3] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PCOR |= 1<<LED3; /* Clear pin*/
+
+  //------------------PORTE------------------------------------------------------
+  //OUTPUTS********************************************************************
+  PCC-> PCCn[PCC_PORTE_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  //Initialize LED10
+  PTE->PDDR |= 1<<LED10; /* Port D0: Data Direction= output */
+  PORTE->PCR[LED10] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTE->PCOR |= 1<<LED10; /* Clear pin*/
+  //Initialize LED2
+  PTE->PDDR |= 1<<LED2; /* Port D0: Data Direction= output */
+  PORTE->PCR[LED2] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTE->PCOR |= 1<<LED2; /* Clear pin*/
+  //Initialize LED1
+  PTE->PDDR |= 1<<LED1; /* Port D0: Data Direction= output */
+  PORTE->PCR[LED1] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTE->PCOR |= 1<<LED1; /* Clear pin*/
 
 }
 

@@ -31,7 +31,10 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Antonio Vazquez    |          1         |                                 */
+/*Antonio Vazquez    |          1         |Creation of the tasks functions    */
+/*----------------------------------------------------------------------------*/
+/*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
+/*                   |                    |1ms taks.                          */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -47,8 +50,7 @@
 
 /* Constants and types  */
 /*============================================================================*/
-
-
+int counter = 0;
 
 /* Variables */
 /*============================================================================*/
@@ -57,39 +59,29 @@
 
 /* Private functions prototypes */
 /*============================================================================*/
-void SchM_3p125ms_Task ( void )
-{
-	Dio_PortTooglePin(PORTCH_C, PIN3P125MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
 
+void SchM_1ms_Task ( void ){
+
+	counter++;
+	if(counter == 1000){
+
+		Dio_PortTooglePin(PORTCH_E,LED10);
+		Dio_PortTooglePin(PORTCH_C,LED9);
+		Dio_PortTooglePin(PORTCH_B,LED8);
+		Dio_PortTooglePin(PORTCH_B,LED7);
+		Dio_PortTooglePin(PORTCH_B,LED6);
+		Dio_PortTooglePin(PORTCH_B,LED5);
+		Dio_PortTooglePin(PORTCH_C,LED4);
+		Dio_PortTooglePin(PORTCH_C,LED3);
+		Dio_PortTooglePin(PORTCH_E,LED2);
+		Dio_PortTooglePin(PORTCH_E,LED1);
+
+		counter=0;
+	}
+
+	/*ADD HERE THE WINDOW LIFTER CODE*/
 }
-void SchM_6p25ms_Task ( void )
-{
-	Dio_PortTooglePin(PORTCH_B, PIN6P25MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
-}
-extern void SchM_12p5ms_Task   ( void ){
-	Dio_PortTooglePin(PORTCH_B, PIN12P5MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
-}
-extern void SchM_25ms_Task     ( void ){
-	Dio_PortTooglePin(PORTCH_B, PIN25MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
-}
-extern void SchM_50ms_Task     ( void ){
-	Dio_PortTooglePin(PORTCH_B, PIN50MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
-}
-extern void SchM_100ms_Task    ( void ){
-	Dio_PortTooglePin(PORTCH_C, PIN100MS);
-	static int counter;
-	for(counter=0;counter <= NumberOfCycles; counter++){}
-}
+
 
 
 /* Inline functions */
@@ -106,6 +98,8 @@ extern void SchM_100ms_Task    ( void ){
 
 /* Exported functions */
 /*============================================================================*/
+
+
 
 
 

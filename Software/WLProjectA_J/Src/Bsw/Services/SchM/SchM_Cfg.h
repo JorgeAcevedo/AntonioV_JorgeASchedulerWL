@@ -7,7 +7,7 @@
  * $Source: SchM_Cfg.h $
  * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 23/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -38,7 +38,11 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |                                   */
+/*Jorge Acevedo      |          1         |creation of the structures for the */
+/*                   |                    |number of task required            */
+/*----------------------------------------------------------------------------*/
+/*Jorge Acevedo      |          2         |Adapt of the structures for the 1  */
+/*                   |                    |ms task                            */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -55,31 +59,16 @@
 /* Constants and types */
 /*============================================================================*/
 typedef enum{
-	SCHM_MASK_3P125MS = (T_UBYTE) 0x03u,
-	SCHM_MASK_6P25MS  = (T_UBYTE) 0x07u,
-	SCHM_MASK_12P5MS  = (T_UBYTE) 0x0Fu,
-	SCHM_MASK_25MS    = (T_UBYTE) 0x1Fu,
-	SCHM_MASK_50MS    = (T_UBYTE) 0x3Fu,
-	SCHM_MASK_100MS   = (T_UBYTE) 0x7Fu
+	SCHM_MASK_1MS  = (T_UBYTE) 0x01u
 }SchM_TaskMaskType;
 
 typedef enum{
-	SCHM_TASKID_BKG,
-	SCHM_TASKID_3P125MS,
-	SCHM_TASKID_6P25MS,
-	SCHM_TASKID_12P5MS,
-	SCHM_TASKID_25MS,
-	SCHM_TASKID_50MS,
-	SCHM_TASKID_100MS
+	SCHM_TASKID_1MS
 }SchM_TaskIDType;
 
 typedef enum{
-	SCHM_OFFSET_3P125MS = (T_UBYTE) 0x00u,
-	SCHM_OFFSET_6P25MS  = (T_UBYTE) 0x01u,
-	SCHM_OFFSET_12P5MS  = (T_UBYTE) 0x02u,
-	SCHM_OFFSET_25MS    = (T_UBYTE) 0x03u,
-	SCHM_OFFSET_50MS    = (T_UBYTE) 0x05u,
-	SCHM_OFFSET_100MS   = (T_UBYTE) 0x06u
+	SCHM_OFFSET_1MS = (T_UBYTE) 0x00u
+
 } SchM_TaskOffsetType;
 
 typedef struct{
