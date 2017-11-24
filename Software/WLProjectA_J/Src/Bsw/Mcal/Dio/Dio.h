@@ -25,5 +25,5 @@ void Dio_PortClearPin(DioPortType DioPort, uint32_t DioPin);
 
 void Dio_PortTooglePin(DioPortType DioPort, uint32_t DioPin);
 
-
+uint8_t Dio_PortGetPin(DioPortType DioPort, uint32_t DioPin);
 #endif /* BSW_MCAL_DIO_DIO_H_ */

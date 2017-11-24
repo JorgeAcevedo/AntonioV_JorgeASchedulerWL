@@ -107,6 +107,14 @@ void PORT_init (void) {
   PTC->PDDR |= 1<<LED3; /* Port D0: Data Direction= output */
   PORTC->PCR[LED3] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
   PTD->PCOR |= 1<<LED3; /* Clear pin*/
+  //INPUTS********************************************************************
+  //Initialize UpButton
+  PTC->PDDR &= ~(1<<UpButton); /* Port D0: Data Direction= input */
+  PORTC->PCR[UpButton] = 0x00000112; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB)
+   	   	   	   	   	   	   	   	   	    Filter & PullDown Resistor*/
+  PTC->PDDR &= ~(1<<DownButton); /* Port D0: Data Direction= input */
+  PORTC->PCR[DownButton] = 0x00000112; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB)
+     	   	   	   	   	   	   	   	   	    Filter & PullDown Resistor*/
 
   //------------------PORTE------------------------------------------------------
   //OUTPUTS********************************************************************
@@ -123,7 +131,22 @@ void PORT_init (void) {
   PTE->PDDR |= 1<<LED1; /* Port D0: Data Direction= output */
   PORTE->PCR[LED1] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
   PTE->PCOR |= 1<<LED1; /* Clear pin*/
+  //INPUTS********************************************************************
+  PTE->PDDR &= ~(1<<AntiPinchButton); /* Port D0: Data Direction= input */
+  PORTE->PCR[AntiPinchButton] |= 0x00000112; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB)
+     	   	   	   	   	   	   	   	   	    Filter & PullDown Resistor*/
 
+  //------------------PORTD------------------------------------------------------
+  //OUTPUTS********************************************************************
+  PCC-> PCCn[PCC_PORTD_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  //Initialize LEDUp
+  PTD->PDDR |= 1<<LEDUp; /* Port D0: Data Direction= output */
+  PORTD->PCR[LEDUp] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PSOR |= 1<<LEDUp; /* Clear pin*/
+  //Initialize LEDDown
+  PTD->PDDR |= 1<<LEDDown; /* Port D0: Data Direction= output */
+  PORTD->PCR[LEDDown] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PSOR |= 1<<LEDDown; /* Clear pin*/
 }
 
 

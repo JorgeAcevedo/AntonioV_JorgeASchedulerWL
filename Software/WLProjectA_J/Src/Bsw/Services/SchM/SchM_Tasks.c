@@ -51,6 +51,9 @@
 /* Constants and types  */
 /*============================================================================*/
 int counter = 0;
+int var1=0;
+int var2=0;
+int var3=0;
 
 /* Variables */
 /*============================================================================*/
@@ -61,23 +64,40 @@ int counter = 0;
 /*============================================================================*/
 
 void SchM_1ms_Task ( void ){
+var1 = Dio_PortGetPin(PORTCH_C,DownButton);
+var2 = Dio_PortGetPin(PORTCH_C,UpButton);
+var3 = Dio_PortGetPin(PORTCH_E,AntiPinchButton);
 
-	counter++;
-	if(counter == 1000){
-
-		Dio_PortTooglePin(PORTCH_E,LED10);
-		Dio_PortTooglePin(PORTCH_C,LED9);
-		Dio_PortTooglePin(PORTCH_B,LED8);
-		Dio_PortTooglePin(PORTCH_B,LED7);
-		Dio_PortTooglePin(PORTCH_B,LED6);
-		Dio_PortTooglePin(PORTCH_B,LED5);
-		Dio_PortTooglePin(PORTCH_C,LED4);
-		Dio_PortTooglePin(PORTCH_C,LED3);
-		Dio_PortTooglePin(PORTCH_E,LED2);
-		Dio_PortTooglePin(PORTCH_E,LED1);
-
-		counter=0;
+	if(Dio_PortGetPin(PORTCH_C,DownButton)||Dio_PortGetPin(PORTCH_C,UpButton)||Dio_PortGetPin(PORTCH_E,AntiPinchButton)){
+		Dio_PortSetPin(PORTCH_E,LED10);
+		Dio_PortSetPin(PORTCH_C,LED9);
+		Dio_PortSetPin(PORTCH_B,LED8);
+		Dio_PortSetPin(PORTCH_B,LED7);
+		Dio_PortSetPin(PORTCH_B,LED6);
+		Dio_PortSetPin(PORTCH_B,LED5);
+		Dio_PortSetPin(PORTCH_C,LED4);
+		Dio_PortSetPin(PORTCH_C,LED3);
+		Dio_PortSetPin(PORTCH_E,LED2);
+		Dio_PortSetPin(PORTCH_E,LED1);
+		Dio_PortClearPin(PORTCH_D,LEDUp);
+		Dio_PortClearPin(PORTCH_D,LEDDown);
+	}else
+	{
+	Dio_PortClearPin(PORTCH_E,LED10);
+	Dio_PortClearPin(PORTCH_C,LED9);
+	Dio_PortClearPin(PORTCH_B,LED8);
+	Dio_PortClearPin(PORTCH_B,LED7);
+	Dio_PortClearPin(PORTCH_B,LED6);
+	Dio_PortClearPin(PORTCH_B,LED5);
+	Dio_PortClearPin(PORTCH_C,LED4);
+	Dio_PortClearPin(PORTCH_C,LED3);
+	Dio_PortClearPin(PORTCH_E,LED2);
+	Dio_PortClearPin(PORTCH_E,LED1);
+	Dio_PortSetPin(PORTCH_D,LEDUp);
+	Dio_PortSetPin(PORTCH_D,LEDDown);
 	}
+
+
 
 	/*ADD HERE THE WINDOW LIFTER CODE*/
 }
