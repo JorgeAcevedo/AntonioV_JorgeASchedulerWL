@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Tasks.c $
+ * $Source: SchM_Cfg.c $
  * $Revision: 1 $
- * $Author: Antonio Vazquez $
- * $Date: 17/11/2017$
+ * $Author: Jorge Acevedo $
+ * $Date: 23/11/2017$
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Declaration of each one of the tasks functions
+    Definition of the TaskDescriptor and SchedulerConfig
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,76 +31,57 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Antonio Vazquez    |          1         |Creation of the tasks functions    */
-/*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
-/*                   |                    |1ms taks.                          */
-/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
+/*Jorge Acevedo      |          1         |Flags defined                      */
+/*Jose Antonio       |        2           |Block functions defined            */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: SchM_Tasks.c  $
+ * $Log: SchM_Cfg.c  $
   ============================================================================*/
 
 /* Includes */
 /*============================================================================*/
-#include "SchM.h"
-#include "SchM_Tasks.h"
-#include "Dio.h"
-
+#include "Flags.h"
 
 /* Constants and types  */
 /*============================================================================*/
 
 
 
-
 /* Variables */
 /*============================================================================*/
-VariablesType VariablesStruct;
 
-VariablesType *Variables = &VariablesStruct;
+
 
 /* Private functions prototypes */
 /*============================================================================*/
-void StartConditions (void){
-			Variables->luw_TimeCounterValidation = START_TIME_COUNTER;
-			Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
-			Variables->lub_LEDBarState = WINDOW_COMPLETELY_CLOSED;
-			Variables->lub_AntiPinchBlock = DESACTIVATED;
-			Variables->lub_FlagOneTouchUp = DESACTIVATED;
-			Variables->lub_FlagOneTouchDown = DESACTIVATED;
-			Variables->luw_TimeCounterAntiPinch = START_TIME_COUNTER;
-			Variables->lub_MovementDirection = NONE;
-			Variables->gub_State = State3;
-			Variables->lub_Status = NONE;
-            WindowClosed();}
-
-void SchM_1ms_Task ( void ){
-
-	if (DESACTIVATED == Variables->lub_AntiPinchBlock){
-	  ReadButtonStatus(Variables);
-	  StateDecision(Variables);
-
-	  }
-	else if(ACTIVATED==Variables->lub_AntiPinchBlock){
-	    if(WINDOW_COMPLETELY_OPEN != Variables->lub_LEDBarState){
-	    Variables->gub_State=State4;}
-	    else if(WINDOW_COMPLETELY_OPEN == Variables->lub_LEDBarState){
-	    Variables->gub_State=State7;
-	    }
-	}
-
- StateMachine(Variables);
-
-	/*ADD HERE THE WINDOW LIFTER CODE*/
-}
 
 
 
 /* Inline functions */
 /*============================================================================*/
+void SetOneTouchFlag(VariablesType *Variables){
+  switch (Variables->lub_MovementDirection) {
+    case UP:
+    Variables->lub_FlagOneTouchUp=ACTIVATED;
+    case DOWN:
+    Variables->lub_FlagOneTouchDown=ACTIVATED;
+  }
+}
+
+void ClearOneTouchFlags(VariablesType *Variables){
+  Variables->lub_FlagOneTouchUp=DESACTIVATED;
+  Variables->lub_FlagOneTouchDown=DESACTIVATED;
+}
+
+void SetAntiPinchBlock(VariablesType *Variables){
+  Variables->lub_AntiPinchBlock=ACTIVATED;
+}
+
+void ClearAntiPinchBlock(VariablesType *Variables){
+  Variables->lub_AntiPinchBlock=DESACTIVATED;
+}
 
 
 
@@ -113,8 +94,6 @@ void SchM_1ms_Task ( void ){
 
 /* Exported functions */
 /*============================================================================*/
-
-
 
 
 

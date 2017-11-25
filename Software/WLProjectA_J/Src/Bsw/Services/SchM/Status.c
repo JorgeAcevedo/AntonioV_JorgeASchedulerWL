@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Tasks.c $
+ * $Source: filename.c $
  * $Revision: 1 $
- * $Author: Antonio Vazquez $
- * $Date: 17/11/2017$
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Declaration of each one of the tasks functions
+/** \ReadPin.c
+ * Functions to read PIN's value
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,25 +30,20 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     | DESCRIPTION                     */
 /*----------------------------------------------------------------------------*/
-/*Antonio Vazquez    |          1         |Creation of the tasks functions    */
-/*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
-/*                   |                    |1ms taks.                          */
-/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
+/*Jos� Antonio V.T     |         1          | Function to read button status */
+/*Jos� Antonio V.T     |         2          | Added function to decide state */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: SchM_Tasks.c  $
+ * $Log: filename.c  $
   ============================================================================*/
 
 /* Includes */
 /*============================================================================*/
-#include "SchM.h"
-#include "SchM_Tasks.h"
-#include "Dio.h"
+#include "Status.h"
 
 
 /* Constants and types  */
@@ -55,47 +51,13 @@
 
 
 
-
 /* Variables */
 /*============================================================================*/
-VariablesType VariablesStruct;
 
-VariablesType *Variables = &VariablesStruct;
+
 
 /* Private functions prototypes */
 /*============================================================================*/
-void StartConditions (void){
-			Variables->luw_TimeCounterValidation = START_TIME_COUNTER;
-			Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
-			Variables->lub_LEDBarState = WINDOW_COMPLETELY_CLOSED;
-			Variables->lub_AntiPinchBlock = DESACTIVATED;
-			Variables->lub_FlagOneTouchUp = DESACTIVATED;
-			Variables->lub_FlagOneTouchDown = DESACTIVATED;
-			Variables->luw_TimeCounterAntiPinch = START_TIME_COUNTER;
-			Variables->lub_MovementDirection = NONE;
-			Variables->gub_State = State3;
-			Variables->lub_Status = NONE;
-            WindowClosed();}
-
-void SchM_1ms_Task ( void ){
-
-	if (DESACTIVATED == Variables->lub_AntiPinchBlock){
-	  ReadButtonStatus(Variables);
-	  StateDecision(Variables);
-
-	  }
-	else if(ACTIVATED==Variables->lub_AntiPinchBlock){
-	    if(WINDOW_COMPLETELY_OPEN != Variables->lub_LEDBarState){
-	    Variables->gub_State=State4;}
-	    else if(WINDOW_COMPLETELY_OPEN == Variables->lub_LEDBarState){
-	    Variables->gub_State=State7;
-	    }
-	}
-
- StateMachine(Variables);
-
-	/*ADD HERE THE WINDOW LIFTER CODE*/
-}
 
 
 
@@ -114,7 +76,64 @@ void SchM_1ms_Task ( void ){
 /* Exported functions */
 /*============================================================================*/
 
+T_UBYTE ButtonPress (T_UBYTE UPDOWNPINCH){
+	if(UPDOWNPINCH==UP){
+		return (T_UBYTE)Dio_PortGetPin(PORTCH_C,UpButton);
+		}
+	if(UPDOWNPINCH==PINCH){
+			return (T_UBYTE)Dio_PortGetPin(PORTCH_E,AntiPinchButton);
+		}
+	if(UPDOWNPINCH==DOWN){
+		return (T_UBYTE)Dio_PortGetPin(PORTCH_C,DownButton);
+	}
+	else{return (T_UBYTE)0;}
+}
 
+
+void ReadButtonStatus(VariablesType *Variables){
+  if(ButtonPress(DOWN)){
+Variables->lub_MovementDirection = DOWN;
+Variables->lub_Status = MOVEMENT;
+  }
+  else if(ButtonPress(PINCH)){
+Variables->lub_Status = PINCH;
+  }
+  else if(ButtonPress(UP)){
+Variables->lub_MovementDirection = UP;
+Variables->lub_Status = MOVEMENT;
+  }
+  else {Variables->lub_Status = NONE;}
+}
+
+
+
+void StateDecision (VariablesType *Variables){
+  if(NONE != Variables->lub_Status && VALIDATION_SIGNAL_TIME>Variables->luw_TimeCounterValidation){
+    Variables->gub_State	=	State2;
+  }
+  else if (NONE!=Variables->lub_Status && VALIDATION_SIGNAL_TIME<=Variables->luw_TimeCounterValidation){
+    switch(Variables->lub_Status){
+      case MOVEMENT:
+      if(VALIDATION_SIGNAL_TIME<=Variables->luw_TimeCounterValidation&&MANUAL_FUNCTION_TIME>Variables->luw_TimeCounterValidation){
+        Variables->gub_State	=	State3;
+      }
+      else if(MANUAL_FUNCTION_TIME<=Variables->luw_TimeCounterValidation){
+        Variables->gub_State	=	State5;
+      }
+      break;
+      case PINCH:
+      Variables->gub_State	=	State6;
+      break;
+    }
+  }
+else if(NONE==Variables->lub_Status){
+     Variables->luw_TimeCounterValidation=START_TIME_COUNTER;
+       if(ACTIVATED==Variables->lub_FlagOneTouchUp||ACTIVATED==Variables->lub_FlagOneTouchDown){
+      Variables->gub_State=State4;
+    }
+         else{Variables->gub_State=State1;}
+    }
+}
 
 
 

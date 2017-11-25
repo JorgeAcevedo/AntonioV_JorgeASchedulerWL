@@ -36,6 +36,7 @@
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
 /*Jorge Acevedo      |          1         |                                   */
+/*Jorge Acevedo      |          2         |Adition of variables and Constants */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -58,6 +59,11 @@
 #define LED3          3
 #define LED2         16
 #define LED1         15
+#define LEDUp      		0
+#define LEDDown 			16
+#define AntiPinchButton 0
+#define UpButton				13
+#define DownButton 			12
 
 /* Constants and types */
 /*============================================================================*/
@@ -88,6 +94,51 @@ typedef struct
 	uint16_t	OsTickCounter;
 	SchM_SchedulerStateType SchM_SchedulerState;
 }SchM_SchedulerStatusType;
+
+typedef struct{
+  T_UWORD luw_TimeCounterValidation;
+  T_UWORD luw_TimeCounterLEDBarChange;
+  T_UBYTE lub_LEDBarState;
+  T_UBYTE lub_AntiPinchBlock;
+  T_UBYTE lub_FlagOneTouchUp;
+  T_UBYTE lub_FlagOneTouchDown;
+  T_UWORD luw_TimeCounterAntiPinch;
+  T_UBYTE lub_MovementDirection;
+  T_UBYTE gub_State;
+  T_UBYTE lub_Status;
+}VariablesType;
+
+enum{
+  UP,
+  DOWN,
+  NONE,
+  PINCH,
+  MOVEMENT
+}ButtonsandDirectionValues;
+
+enum{
+  State1,
+  State2,
+  State3,
+  State4,
+  State5,
+  State6,
+  State7
+}States;
+
+
+enum{
+  ACTIVATED,
+  DESACTIVATED,
+  WINDOW_COMPLETELY_OPEN    =   (T_UBYTE) 0,
+  WINDOW_COMPLETELY_CLOSED  =   (T_UBYTE) 10,
+  START_TIME_COUNTER        =   (T_UBYTE) 0,
+  VALIDATION_SIGNAL_TIME    =   (T_UBYTE) 10,
+  MANUAL_FUNCTION_TIME      =   (T_UWORD) 500,
+  MODULE_BLOCKED_TIME       =   (T_UWORD) 5000,
+  CHANGE_WINDOW_STATE_TIME  =   (T_UWORD) 400
+}Constantstype;
+
 
 /* Exported Variables */
 /*============================================================================*/

@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Tasks.c $
+ * $Source: filename.c $
  * $Revision: 1 $
- * $Author: Antonio Vazquez $
- * $Date: 17/11/2017$
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Declaration of each one of the tasks functions
+/** \ReadPin.c
+ * Functions to read PIN's value
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,25 +30,22 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     | DESCRIPTION                     */
 /*----------------------------------------------------------------------------*/
-/*Antonio Vazquez    |          1         |Creation of the tasks functions    */
-/*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
-/*                   |                    |1ms taks.                          */
-/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
+/*Jose Antonio        |              1      |StateMachine defined             */
+/*Jorge Acevedo       |           2         |WindowControl used to States 4 and 5*/
+/*Jose Antonio        |         3           |States 6 and 7 developed         */
+/*Jorge Acevedo       |        4           |States 1 throught 3 developed    */ 
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: SchM_Tasks.c  $
+ * $Log: filename.c  $
   ============================================================================*/
 
 /* Includes */
 /*============================================================================*/
-#include "SchM.h"
-#include "SchM_Tasks.h"
-#include "Dio.h"
+#include "WLSch.h"
 
 
 /* Constants and types  */
@@ -55,47 +53,13 @@
 
 
 
-
 /* Variables */
 /*============================================================================*/
-VariablesType VariablesStruct;
 
-VariablesType *Variables = &VariablesStruct;
+
 
 /* Private functions prototypes */
 /*============================================================================*/
-void StartConditions (void){
-			Variables->luw_TimeCounterValidation = START_TIME_COUNTER;
-			Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
-			Variables->lub_LEDBarState = WINDOW_COMPLETELY_CLOSED;
-			Variables->lub_AntiPinchBlock = DESACTIVATED;
-			Variables->lub_FlagOneTouchUp = DESACTIVATED;
-			Variables->lub_FlagOneTouchDown = DESACTIVATED;
-			Variables->luw_TimeCounterAntiPinch = START_TIME_COUNTER;
-			Variables->lub_MovementDirection = NONE;
-			Variables->gub_State = State3;
-			Variables->lub_Status = NONE;
-            WindowClosed();}
-
-void SchM_1ms_Task ( void ){
-
-	if (DESACTIVATED == Variables->lub_AntiPinchBlock){
-	  ReadButtonStatus(Variables);
-	  StateDecision(Variables);
-
-	  }
-	else if(ACTIVATED==Variables->lub_AntiPinchBlock){
-	    if(WINDOW_COMPLETELY_OPEN != Variables->lub_LEDBarState){
-	    Variables->gub_State=State4;}
-	    else if(WINDOW_COMPLETELY_OPEN == Variables->lub_LEDBarState){
-	    Variables->gub_State=State7;
-	    }
-	}
-
- StateMachine(Variables);
-
-	/*ADD HERE THE WINDOW LIFTER CODE*/
-}
 
 
 
@@ -114,8 +78,57 @@ void SchM_1ms_Task ( void ){
 /* Exported functions */
 /*============================================================================*/
 
-
-
-
-
+void StateMachine(VariablesType *Variables){
+  switch (Variables->gub_State) {
+  // Standby
+    case State1:
+    	TurnOffIndicator(Variables);
+    break;
+ //Signal Validation
+    case State2:
+    Variables->luw_TimeCounterValidation++;
+    TurnOffIndicator(Variables);
+    TurnOnIndicator(Variables);
+    break;
+ //Mode Decision
+    case State3:
+    if (VALIDATION_SIGNAL_TIME == Variables->luw_TimeCounterValidation){
+      SetOneTouchFlag(Variables);
+      Variables->luw_TimeCounterValidation++;
+    }
+    else if(VALIDATION_SIGNAL_TIME < Variables->luw_TimeCounterValidation){
+      Variables->luw_TimeCounterValidation++;
+    }
+    break;
+// OneTouch Function
+    case State4:
+    WindowEmulator(Variables);
+    break;
+//Manual Function
+    case State5:
+    if (MANUAL_FUNCTION_TIME==Variables->luw_TimeCounterValidation){
+      ClearOneTouchFlags(Variables);
+      Variables->luw_TimeCounterValidation++;
+    }
+    else if (MANUAL_FUNCTION_TIME<Variables->luw_TimeCounterValidation){
+      WindowEmulator(Variables);
+    }
+    break;
+//Anti Pinch
+    case State6: //PINCH
+    SetAntiPinchBlock(Variables);
+    ClearOneTouchFlags(Variables);
+    Variables->lub_MovementDirection=DOWN;
+    break;
+//Block state
+    case State7:
+    if (MODULE_BLOCKED_TIME>Variables->luw_TimeCounterAntiPinch){
+      Variables->luw_TimeCounterAntiPinch++;
+    }
+    else if(MODULE_BLOCKED_TIME==Variables->luw_TimeCounterAntiPinch){
+      ClearAntiPinchBlock(Variables);
+      Variables->luw_TimeCounterAntiPinch=START_TIME_COUNTER;
+    }
+    break;
+}}
  /* Notice: the file ends with a blank new line to avoid compiler warnings */

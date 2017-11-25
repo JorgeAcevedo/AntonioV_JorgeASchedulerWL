@@ -27,5 +27,41 @@ void Dio_PortTooglePin(DioPortType DioPort, uint32_t DioPin)
 
 uint8_t Dio_PortGetPin(DioPortType DioPort, uint32_t DioPin)
 {
-	return (uint8_t)Port[DioPort]->PDIR;
+	 uint8_t Flag = 0;
+
+	switch (DioPort){
+	case PORTCH_A:
+		if(PTA->PDIR & (1<<DioPin))
+		{
+			Flag=1;
+		}
+		break;
+	case PORTCH_B:
+		if(PTB->PDIR & (1<<DioPin))
+		{
+			Flag=1;
+		}
+		break;
+	case PORTCH_C:
+		if(PTC->PDIR & (1<<DioPin))
+		{
+			Flag=1;
+		}
+		break;
+	case PORTCH_D:
+		if(PTD->PDIR & (1<<DioPin))
+		{
+			Flag=1;
+		}
+		break;
+	case PORTCH_E:
+		if(PTE->PDIR & (1<<DioPin))
+		{
+			Flag=1;
+		}
+		break;
+	default:
+		Flag=0;
+	}
+	return Flag;
 }

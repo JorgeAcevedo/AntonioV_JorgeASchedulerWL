@@ -33,4 +33,22 @@ typedef signed char sint8_t;
 typedef signed short sint16_t;
 typedef signed int sint32_t;
 
+#define LED10            9	//E
+#define LED9             7	//C
+#define LED8            17	//B
+#define LED7  	        14	//B
+#define LED6            15	//B
+#define LED5            16	//B
+#define LED4            14	//C
+#define LED3          	 3	//C
+#define LED2         	16	//E
+#define LED1         	15	//E
+
+#define LEDUp			 0	//D
+#define LEDDown			16	//D
+
+#define AntiPinchButton   0	//E
+#define UpButton		 13	//C
+#define DownButton		 12	//C
+
 #endif /* COMMON_STD_TYPES_H_ */

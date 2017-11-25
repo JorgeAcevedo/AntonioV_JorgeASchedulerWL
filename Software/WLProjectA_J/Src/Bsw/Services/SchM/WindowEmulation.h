@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Tasks.c $
+ * $Source: WindowControl.h $
  * $Revision: 1 $
- * $Author: Antonio Vazquez $
- * $Date: 17/11/2017$
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Declaration of each one of the tasks functions
+/** \file
+    File to control the behaviour of the peripherials.
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,93 +30,41 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     |  DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*Antonio Vazquez    |          1         |Creation of the tasks functions    */
-/*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
-/*                   |                    |1ms taks.                          */
-/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
+/*Jorge Acevedo        |        1           | Functions to manage window emulation */
+/*Antonio Vazquez      |        2           | Added functions nedded to use at the StateMachine */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: SchM_Tasks.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef LEDON_H
+#define LEDON_H
 
 /* Includes */
 /*============================================================================*/
-#include "SchM.h"
-#include "SchM_Tasks.h"
-#include "Dio.h"
+#include "WLSch.h"
 
-
-/* Constants and types  */
+/* Constants and types */
 /*============================================================================*/
 
 
 
 
-/* Variables */
-/*============================================================================*/
-VariablesType VariablesStruct;
-
-VariablesType *Variables = &VariablesStruct;
-
-/* Private functions prototypes */
-/*============================================================================*/
-void StartConditions (void){
-			Variables->luw_TimeCounterValidation = START_TIME_COUNTER;
-			Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
-			Variables->lub_LEDBarState = WINDOW_COMPLETELY_CLOSED;
-			Variables->lub_AntiPinchBlock = DESACTIVATED;
-			Variables->lub_FlagOneTouchUp = DESACTIVATED;
-			Variables->lub_FlagOneTouchDown = DESACTIVATED;
-			Variables->luw_TimeCounterAntiPinch = START_TIME_COUNTER;
-			Variables->lub_MovementDirection = NONE;
-			Variables->gub_State = State3;
-			Variables->lub_Status = NONE;
-            WindowClosed();}
-
-void SchM_1ms_Task ( void ){
-
-	if (DESACTIVATED == Variables->lub_AntiPinchBlock){
-	  ReadButtonStatus(Variables);
-	  StateDecision(Variables);
-
-	  }
-	else if(ACTIVATED==Variables->lub_AntiPinchBlock){
-	    if(WINDOW_COMPLETELY_OPEN != Variables->lub_LEDBarState){
-	    Variables->gub_State=State4;}
-	    else if(WINDOW_COMPLETELY_OPEN == Variables->lub_LEDBarState){
-	    Variables->gub_State=State7;
-	    }
-	}
-
- StateMachine(Variables);
-
-	/*ADD HERE THE WINDOW LIFTER CODE*/
-}
-
-
-
-/* Inline functions */
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-
-/* Private functions */
+/* Exported functions prototypes */
 /*============================================================================*/
 
+void WindowControl (VariablesType *Variables);
+void WindowClosed (void);
+void WindowEmulator(VariablesType *Variables);
+void WindowSimulation(VariablesType *Variables);
+void TurnOnIndicator(VariablesType *Variables);
+void TurnOffIndicator(VariablesType *Variables);
 
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */
