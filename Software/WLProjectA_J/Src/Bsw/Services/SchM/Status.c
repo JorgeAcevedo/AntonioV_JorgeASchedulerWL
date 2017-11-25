@@ -1,5 +1,93 @@
+/*============================================================================*/
+/*                        I BS SOFTWARE GROUP                                 */
+/*============================================================================*/
+/*                        OBJECT SPECIFICATION                                */
+/*============================================================================*/
+/*!
+ * $Source: filename.c $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
+ */
+/*============================================================================*/
+/* DESCRIPTION :                                                              */
+/** \ReadPin.c
+ * Functions to read PIN's value
 
+*/
+/*============================================================================*/
+/* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
+/* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
+/* ALL RIGHTS RESERVED                                                        */
+/*                                                                            */
+/* The reproduction, transmission, or use of this document or its content is  */
+/* not permitted without express written authority. Offenders will be liable  */
+/* for damages.                                                               */
+/* All rights, including rights created by patent grant or registration of a  */
+/* utility model or design, are reserved.                                     */
+/*                                                                            */
+/*============================================================================*/
+/*============================================================================*/
+/*                    REUSE HISTORY - taken over from                         */
+/*============================================================================*/
+/*  AUTHOR             |        VERSION     | DESCRIPTION                     */
+/*----------------------------------------------------------------------------*/
+/*Jos� Antonio V.T     |         1          | Function to read button status */
+/*Jos� Antonio V.T     |         2          | Added function to decide state */
+/*============================================================================*/
+/*                               OBJECT HISTORY                               */
+/*============================================================================*/
+/*
+ * $Log: filename.c  $
+  ============================================================================*/
+
+/* Includes */
+/*============================================================================*/
 #include "Status.h"
+
+
+/* Constants and types  */
+/*============================================================================*/
+
+
+
+/* Variables */
+/*============================================================================*/
+
+
+
+/* Private functions prototypes */
+/*============================================================================*/
+
+
+
+/* Inline functions */
+/*============================================================================*/
+
+
+
+
+/* Private functions */
+/*============================================================================*/
+
+
+
+
+/* Exported functions */
+/*============================================================================*/
+
+T_UBYTE ButtonPress (T_UBYTE UPDOWNPINCH){
+	if(UPDOWNPINCH==UP){
+		return (T_UBYTE)Dio_PortGetPin(PORTCH_C,UpButton);
+		}
+	if(UPDOWNPINCH==PINCH){
+			return (T_UBYTE)Dio_PortGetPin(PORTCH_E,AntiPinchButton);
+		}
+	if(UPDOWNPINCH==DOWN){
+		return (T_UBYTE)Dio_PortGetPin(PORTCH_C,DownButton);
+	}
+	else{return (T_UBYTE)0;}
+}
 
 
 void ReadButtonStatus(VariablesType *Variables){
@@ -46,3 +134,7 @@ else if(NONE==Variables->lub_Status){
          else{Variables->gub_State=State1;}
     }
 }
+
+
+
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */

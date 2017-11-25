@@ -35,6 +35,7 @@
 /*----------------------------------------------------------------------------*/
 /*Jorge Acevedo      |          2         |Replacement of the tasks with the  */
 /*                   |                    |1ms taks.                          */
+/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -74,7 +75,7 @@ void StartConditions (void){
 			Variables->lub_MovementDirection = NONE;
 			Variables->gub_State = State3;
 			Variables->lub_Status = NONE;
-WindowClosed();}
+            WindowClosed();}
 
 void SchM_1ms_Task ( void ){
 

@@ -1,6 +1,82 @@
+/*============================================================================*/
+/*                        I BS SOFTWARE GROUP                                 */
+/*============================================================================*/
+/*                        OBJECT SPECIFICATION                                */
+/*============================================================================*/
+/*!
+ * $Source: filename.c $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
+ */
+/*============================================================================*/
+/* DESCRIPTION :                                                              */
+/** \ReadPin.c
+ * Functions to read PIN's value
+
+*/
+/*============================================================================*/
+/* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
+/* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
+/* ALL RIGHTS RESERVED                                                        */
+/*                                                                            */
+/* The reproduction, transmission, or use of this document or its content is  */
+/* not permitted without express written authority. Offenders will be liable  */
+/* for damages.                                                               */
+/* All rights, including rights created by patent grant or registration of a  */
+/* utility model or design, are reserved.                                     */
+/*                                                                            */
+/*============================================================================*/
+/*============================================================================*/
+/*                    REUSE HISTORY - taken over from                         */
+/*============================================================================*/
+/*  AUTHOR             |        VERSION     | DESCRIPTION                     */
+/*----------------------------------------------------------------------------*/
+/*Jose Antonio        |              1      |StateMachine defined             */
+/*Jorge Acevedo       |           2         |WindowControl used to States 4 and 5*/
+/*Jose Antonio        |         3           |States 6 and 7 developed         */
+/*Jorge Acevedo       |        4           |States 1 throught 3 developed    */ 
+/*============================================================================*/
+/*                               OBJECT HISTORY                               */
+/*============================================================================*/
+/*
+ * $Log: filename.c  $
+  ============================================================================*/
+
+/* Includes */
+/*============================================================================*/
 #include "WLSch.h"
 
 
+/* Constants and types  */
+/*============================================================================*/
+
+
+
+/* Variables */
+/*============================================================================*/
+
+
+
+/* Private functions prototypes */
+/*============================================================================*/
+
+
+
+/* Inline functions */
+/*============================================================================*/
+
+
+
+
+/* Private functions */
+/*============================================================================*/
+
+
+
+
+/* Exported functions */
+/*============================================================================*/
 
 void StateMachine(VariablesType *Variables){
   switch (Variables->gub_State) {
@@ -55,3 +131,4 @@ void StateMachine(VariablesType *Variables){
     }
     break;
 }}
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */

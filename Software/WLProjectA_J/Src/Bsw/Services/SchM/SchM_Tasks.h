@@ -13,7 +13,7 @@
 /* DESCRIPTION :                                                              */
 /*
     Declaration of the Pins
-    Constant value of NumberOfCycles // This variable changes the execution 
+    Constant value of NumberOfCycles // This variable changes the execution
                                         time of the taks
     Prototypes of each task function
 */
@@ -37,6 +37,7 @@
 /*Antonio Vazquez    |          1         |Modification of all tasks          */
 /*============================================================================*/
 /*Jorge Acevedo      |          2         |replacement of al task for 1ms task*/
+/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
 /*============================================================================*/
 
 /*                               OBJECT HISTORY                               */
