@@ -44,60 +44,54 @@
 
 /* Includes */
 /*============================================================================*/
+#include "SchM.h"
 #include "SchM_Tasks.h"
 #include "Dio.h"
 
 
 /* Constants and types  */
 /*============================================================================*/
-int counter = 0;
-int var1=0;
-int var2=0;
-int var3=0;
+
+
+
 
 /* Variables */
 /*============================================================================*/
+VariablesType VariablesStruct;
 
-
+VariablesType *Variables = &VariablesStruct;
 
 /* Private functions prototypes */
 /*============================================================================*/
+void StartConditions (void){
+			Variables->luw_TimeCounterValidation = START_TIME_COUNTER;
+			Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
+			Variables->lub_LEDBarState = WINDOW_COMPLETELY_CLOSED;
+			Variables->lub_AntiPinchBlock = DESACTIVATED;
+			Variables->lub_FlagOneTouchUp = DESACTIVATED;
+			Variables->lub_FlagOneTouchDown = DESACTIVATED;
+			Variables->luw_TimeCounterAntiPinch = START_TIME_COUNTER;
+			Variables->lub_MovementDirection = NONE;
+			Variables->gub_State = State3;
+			Variables->lub_Status = NONE;
+WindowClosed();}
 
 void SchM_1ms_Task ( void ){
-var1 = Dio_PortGetPin(PORTCH_C,DownButton);
-var2 = Dio_PortGetPin(PORTCH_C,UpButton);
-var3 = Dio_PortGetPin(PORTCH_E,AntiPinchButton);
 
-	if(Dio_PortGetPin(PORTCH_C,DownButton)||Dio_PortGetPin(PORTCH_C,UpButton)||Dio_PortGetPin(PORTCH_E,AntiPinchButton)){
-		Dio_PortSetPin(PORTCH_E,LED10);
-		Dio_PortSetPin(PORTCH_C,LED9);
-		Dio_PortSetPin(PORTCH_B,LED8);
-		Dio_PortSetPin(PORTCH_B,LED7);
-		Dio_PortSetPin(PORTCH_B,LED6);
-		Dio_PortSetPin(PORTCH_B,LED5);
-		Dio_PortSetPin(PORTCH_C,LED4);
-		Dio_PortSetPin(PORTCH_C,LED3);
-		Dio_PortSetPin(PORTCH_E,LED2);
-		Dio_PortSetPin(PORTCH_E,LED1);
-		Dio_PortClearPin(PORTCH_D,LEDUp);
-		Dio_PortClearPin(PORTCH_D,LEDDown);
-	}else
-	{
-	Dio_PortClearPin(PORTCH_E,LED10);
-	Dio_PortClearPin(PORTCH_C,LED9);
-	Dio_PortClearPin(PORTCH_B,LED8);
-	Dio_PortClearPin(PORTCH_B,LED7);
-	Dio_PortClearPin(PORTCH_B,LED6);
-	Dio_PortClearPin(PORTCH_B,LED5);
-	Dio_PortClearPin(PORTCH_C,LED4);
-	Dio_PortClearPin(PORTCH_C,LED3);
-	Dio_PortClearPin(PORTCH_E,LED2);
-	Dio_PortClearPin(PORTCH_E,LED1);
-	Dio_PortSetPin(PORTCH_D,LEDUp);
-	Dio_PortSetPin(PORTCH_D,LEDDown);
+	if (DESACTIVATED == Variables->lub_AntiPinchBlock){
+	  ReadButtonStatus(Variables);
+	  StateDecision(Variables);
+
+	  }
+	else if(ACTIVATED==Variables->lub_AntiPinchBlock){
+	    if(WINDOW_COMPLETELY_OPEN != Variables->lub_LEDBarState){
+	    Variables->gub_State=State4;}
+	    else if(WINDOW_COMPLETELY_OPEN == Variables->lub_LEDBarState){
+	    Variables->gub_State=State7;
+	    }
 	}
 
-
+ StateMachine(Variables);
 
 	/*ADD HERE THE WINDOW LIFTER CODE*/
 }
@@ -124,9 +118,3 @@ var3 = Dio_PortGetPin(PORTCH_E,AntiPinchButton);
 
 
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
-
-
-
-
-
-

@@ -75,6 +75,7 @@
 const SchM_ConfigType *GlbSchMConfig;
 
 
+
 /* Variables */
 /*============================================================================*/
 SchM_TaskControlBlockType SchM_TaskControlBlock[NUM_OF_TASKS];
@@ -118,6 +119,7 @@ void SchM_OsTick( void )
 
 void SchM_Background( void )
 {
+
 	uint8_t LocTaskIdx;
 	for(;;)
 	{
