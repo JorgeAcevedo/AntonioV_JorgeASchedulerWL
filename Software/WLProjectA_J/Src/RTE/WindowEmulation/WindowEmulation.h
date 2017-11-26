@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Source: WindowControl.h $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/** \file
+    File to control the behaviour of the peripherials.
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,63 +30,42 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     |  DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jorge Acevedo        |        1           | Functions to manage window emulation */
+/*Antonio Vazquez      |        2           | Added functions nedded to use at the StateMachine */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef LEDON_H
+#define LEDON_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Flags.h"
+#include "PortComm.h"
 
-/* Constants and types  */
-/*============================================================================*/
-
-
-
-/* Variables */
-/*============================================================================*/
-
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
+/* Constants and types */
 /*============================================================================*/
 
 
 
 
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
+/* Exported Variables */
 /*============================================================================*/
 
 
+/* Exported functions prototypes */
+/*============================================================================*/
 
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+void WindowControl (VariablesType *Variables);
+void WindowClosed (void);
+void WindowEmulator(VariablesType *Variables);
+void WindowSimulation(VariablesType *Variables);
+void TurnOnIndicator(VariablesType *Variables);
+void TurnOffIndicator(VariablesType *Variables);
+
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

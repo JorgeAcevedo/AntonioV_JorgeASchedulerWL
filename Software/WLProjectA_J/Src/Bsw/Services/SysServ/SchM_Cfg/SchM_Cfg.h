@@ -4,15 +4,22 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: SchM_Cfg.h $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 23/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+	Definition of SchM_TaskMaskType
+	SchM_TaskIDType
+	SchM_TaskOffsetType
+	SchM_ConfigType
+	const SchM_ConfigType SchedulerConfig
+
+	This are user configurable variables that will be present for the user
+	modification.
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +38,60 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jorge Acevedo      |          1         |creation of the structures for the */
+/*                   |                    |number of task required            */
+/*----------------------------------------------------------------------------*/
+/*Jorge Acevedo      |          2         |Adapt of the structures for the 1  */
+/*                   |                    |ms task                            */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef BSW_SERVICES_SCHM_SCHM_CFG_H_
+#define BSW_SERVICES_SCHM_SCHM_CFG_H_
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+//#include "SchM.h"
+#include "SchM_Types.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+typedef enum{
+	SCHM_MASK_1MS  = (T_UBYTE) 0x01u
+}SchM_TaskMaskType;
+
+typedef enum{
+	SCHM_TASKID_1MS
+}SchM_TaskIDType;
+
+typedef enum{
+	SCHM_OFFSET_1MS = (T_UBYTE) 0x00u
+
+} SchM_TaskOffsetType;
+
+typedef struct{
+	SchM_TaskIDType 	TaskID;
+	SchM_TaskMaskType 	TaskMask;
+	SchM_TaskOffsetType TaskOffset;
+	tCallbackFunction TaskCallback;
+}SchM_TaskConfigType;
+
+
+typedef struct {
+	uint8_t NumOfTasks;
+	const SchM_TaskConfigType *TaskConfig;
+}SchM_ConfigType;
+
+const SchM_ConfigType SchedulerConfig;
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

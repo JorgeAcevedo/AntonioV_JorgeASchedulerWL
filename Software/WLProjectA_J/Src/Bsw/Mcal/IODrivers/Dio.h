@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Source: GPIO.h $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/** \file
+    GPIO mapping
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,63 +30,57 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     | DESCRIPTION                     */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/* JOS� ANTONIO V.T.   |          1         | GPIO mapping and definitions    */
+/*----------------------------------------------------------------------------*/
+/* JOS� ANTONIO V.T.   |          2         | Functions to read pin's values  */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef GPIO_H
+#define GPIO_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Std_Types.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+typedef struct {
+	T_ULONG PDOR;
+	T_ULONG PSOR;
+	T_ULONG PCOR;
+	T_ULONG PTOR;
+	T_ULONG PDIR;
+	T_ULONG PDDR;
+	T_ULONG PIDR;
+}GPIO_Type;
+
+#define GPIO_PORTA_BASE_ADDRESS      0x400FF000
+#define GPIO_PORTB_BASE_ADDRESS      0x400FF040
+#define GPIO_PORTC_BASE_ADDRESS      0x400FF080
+#define GPIO_PORTD_BASE_ADDRESS      0x400FF0C0
+#define GPIO_PORTE_BASE_ADDRESS      0x400FF100
+
+
+#define PTA           ((GPIO_Type *)GPIO_PORTA_BASE_ADDRESS)
+#define PTB           ((GPIO_Type *)GPIO_PORTB_BASE_ADDRESS)
+#define PTC           ((GPIO_Type *)GPIO_PORTC_BASE_ADDRESS)
+#define PTD           ((GPIO_Type *)GPIO_PORTD_BASE_ADDRESS)
+#define PTE           ((GPIO_Type *)GPIO_PORTE_BASE_ADDRESS)
+
+/* Exported Variables */
+/*============================================================================*/
+
+
+/* Exported functions prototypes */
 /*============================================================================*/
 
 
 
-/* Variables */
-/*============================================================================*/
 
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Source: WDOG.h $
+ * $Revision: 1 $
+* $Author: Jos� Antonio  $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/** \file
+    WDOG mapping.
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,63 +30,41 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     |  DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*JOS� ANTONIO V.T.    |        1           |WDOG mapping and functions       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef WDOG_H
+#define WDOG_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Std_Types.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+typedef struct{
+	T_ULONG CS;
+	T_ULONG CNT;
+	T_ULONG TOVAL;
+	T_ULONG WIN;
+}S_WDOG;
+
+#define WDOG_BASE_ADDRESS    0x40052000
+
+#define WDOG             ((S_WDOG *) WDOG_BASE_ADDRESS)
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
 
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

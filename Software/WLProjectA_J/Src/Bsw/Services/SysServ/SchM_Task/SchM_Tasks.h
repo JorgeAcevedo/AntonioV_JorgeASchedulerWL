@@ -4,15 +4,18 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
+ * $Source: SchM_Tasks.h $
+ * $Revision: 1 $
+ * $Author: Antonio Vazquez $
  * $Date: 17/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+    Declaration of the Pins
+    Constant value of NumberOfCycles // This variable changes the execution
+                                        time of the taks
+    Prototypes of each task function
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +34,45 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Antonio Vazquez    |          1         |Modification of all tasks          */
 /*============================================================================*/
+/*Jorge Acevedo      |          2         |replacement of al task for 1ms task*/
+/*Antonio Vazquez    |          3         |Modification of the 1ms task       */
+/*============================================================================*/
+
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: SchM_Tasks.h  $
   ============================================================================*/
+#ifndef BSW_SERVICES_SCHM_SCHM_TASKS_H_
+#define BSW_SERVICES_SCHM_SCHM_TASKS_H_
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "SchM_Types.h"
 
-/* Constants and types  */
+
+/* Constants and types */
+/*============================================================================*/
+#define LED10         9
+#define LED9          7
+#define LED8         17
+#define LED7  	     14
+#define LED6         15
+#define LED5         16
+#define LED4         14
+#define LED3          3
+#define LED2         16
+#define LED1         15
+
+/* Exported Variables */
 /*============================================================================*/
 
+extern void SchM_1ms_Task    ( void );
+extern void StartConditions (void);
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_TASKS_H_ */

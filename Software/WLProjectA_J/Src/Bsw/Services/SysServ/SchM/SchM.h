@@ -4,15 +4,23 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: SchM.h $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
  * $Date: 17/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+    Prototype functions of:
+    extern void SchM_Init( const SchM_ConfigType *SchMConfig );
+    extern void SchM_Start( void );
+    extern void SchM_Stop( void );
+    void TurnOnOverloadPin(void);
+    void TurnOnBackgroundPin(void);
+    void TurnOffBackgroundPin(void);
+
+    Declaration of the data Flags
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +39,41 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jorge Acevedo      |          1         |                                   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: SchM.h  $
   ============================================================================*/
+#ifndef BSW_SERVICES_SCHM_SCHM_H_
+#define BSW_SERVICES_SCHM_SCHM_H_
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
 
-/* Constants and types  */
+#include "SchM_Types.h"
+#include "SchM_Cfg.h"
+
+
+/* Constants and types */
+/*============================================================================*/
+typedef struct{
+    uint8_t FlagOverLoad: 1;    //Flag for indicating that an Overload have occured
+    uint8_t FlagTaskState:1;    //Flag for indicating that there is a task in Ready/Running state
+} Flags;
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
+extern void SchM_Init( const SchM_ConfigType *SchMConfig );
+extern void SchM_Start( void );
+extern void SchM_Stop( void );
+void TurnOnOverloadPin(void);
+void TurnOnBackgroundPin(void);
+void TurnOffBackgroundPin(void);
 
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_H_ */

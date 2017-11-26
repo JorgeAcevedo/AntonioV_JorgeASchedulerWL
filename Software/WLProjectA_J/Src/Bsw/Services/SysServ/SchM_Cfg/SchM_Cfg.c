@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: SchM_Cfg.c $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 23/11/2017$
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+    Definition of the TaskDescriptor and SchedulerConfig
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,17 +31,22 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jorge Acevedo      |          1         |Fill task descriptor with task info*/
+/*----------------------------------------------------------------------------*/
+/*Jorge Acevedo      |          2         |Fill task descriptor with 1ms task */
+/*                   |                    |info                               */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: SchM_Cfg.c  $
   ============================================================================*/
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "SchM_Cfg.h"
+#include "SchM_Tasks.h"
+
 
 /* Constants and types  */
 /*============================================================================*/
@@ -60,26 +65,30 @@
 
 /* Inline functions */
 /*============================================================================*/
+const SchM_TaskConfigType TaskDescriptor[]=
+{
+		{
+				SCHM_TASKID_1MS,
+				SCHM_MASK_1MS,
+				SCHM_OFFSET_1MS,
+				SchM_1ms_Task
+		}
+
+
+};
+
+const SchM_ConfigType SchedulerConfig =
+{
+		sizeof(TaskDescriptor)/sizeof(SchM_TaskConfigType),
+		&TaskDescriptor[0]
+};
 
 
 
 
 /* Private functions */
 /*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
 
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
 
 
 
