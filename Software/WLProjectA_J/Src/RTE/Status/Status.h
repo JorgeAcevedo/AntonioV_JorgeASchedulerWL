@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Source: ReadPin.h $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/** \file
+    Read the PIN's value.
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,63 +30,39 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     |  DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jos� Antonio V.T     |         1          | Function to read button status */
+/*Jos� Antonio V.T     |         2          | Added function to decide state */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef STATUS_H
+#define STATUS_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "PortComm.h"
+#include "SchM_Types.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+/*#define UP    (T_UBYTE)1
+#define DOWN  (T_UBYTE)2
+#define PINCH (T_UBYTE)3*/
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
+T_UBYTE ButtonPress (T_UBYTE UPDOWNPINCH);
+void ReadButtonStatus(VariablesType *Variables);
+void StateDecision (VariablesType *Variables);
 
 
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

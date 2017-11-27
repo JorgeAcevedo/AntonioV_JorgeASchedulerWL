@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
+ * $Source: Port.h $
+ * $Revision: 1 $
+ * $Author: Antonio Vazquez $
  * $Date: 17/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+    Definition of the Pins and the PortInit function prototype.
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +31,55 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Antonio Vazquez    |          1         |                                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: Port.h  $
   ============================================================================*/
+#ifndef BSW_MCAL_PORT_PORT_H_
+#define BSW_MCAL_PORT_PORT_H_
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
 
-/* Constants and types  */
+
+/* Constants and types */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Private functions prototypes */
+/* Exported functions prototypes */
 /*============================================================================*/
 
+#include "IODrivers_Dio.h"
+#include "IODrivers_OutputCfg.h"
+#include "IODrivers_Port.h"
+
+#define LED10         9
+#define LED9          7
+#define LED8         17
+#define LED7  	     14
+#define LED6         15
+#define LED5         16
+#define LED4         14
+#define LED3          3
+#define LED2         16
+#define LED1         15
+#define LEDUp        0
+#define LEDDown 			16
+#define AntiPinchButton 0
+#define UpButton				13
+#define DownButton 			12
 
 
-/* Inline functions */
-/*============================================================================*/
+/* DEfinir Botones*/
 
 
+void PORT_init (void);
 
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_MCAL_PORT_PORT_H_ */

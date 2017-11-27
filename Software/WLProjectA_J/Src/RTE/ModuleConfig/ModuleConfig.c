@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: Flags.c $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 23/11/2017$
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+    Definition of the TaskDescriptor and SchedulerConfig
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,12 +31,12 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jose Antonio      |          1         |Configuration to start the module main functions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: SchM_Cfg.c  $
   ============================================================================*/
 
 /* Includes */
@@ -60,26 +60,33 @@
 
 /* Inline functions */
 /*============================================================================*/
+void NormalModeModuleInit (void){
+  WDOG_disable();
+  PORT_init();             				/* Configure ports */
+  SOSC_init_8MHz();        				/* Initialize system oscilator for 8 MHz xtal */
+  SPLL_init_160MHz();      				/* Initialize SPLL to 160 MHz with 8 MHz SOSC */
+  NormalRUNmode_80MHz();
+}
+
+void EnableInterruptions (void){
+
+  NVIC_init_IRQs();}
+
+void SchedulerInit (void){
+  SchM_Init(&SchedulerConfig);
+  StartConditions();
+}
+
+void WindowLifterApp (void){
+SchM_Start();
+}
 
 
 
 
 /* Private functions */
 /*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
 
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
 
 
 

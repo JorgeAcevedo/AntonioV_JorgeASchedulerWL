@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: ModuleConfig.h $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 23/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+	
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +31,40 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jose Antonio      |          1         |Configuration to start the module main functions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+  #ifndef RTE_MODULECONFIG_MODULECONFIG_H_
+  #define RTE_MODULECONFIG_MODULECONFIG_H_
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Nvic.h"
+#include "WdogCfg.h"
+#include "PortInit.h"
+#include "RunMode.h"
+#include "SchM.h"
+#include "SchM_Tasks.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+void NormalModeModuleInit (void);
+
+void EnableInterruptions (void);
+
+void SchedulerInit (void);
+
+void WindowLifterApp (void);
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

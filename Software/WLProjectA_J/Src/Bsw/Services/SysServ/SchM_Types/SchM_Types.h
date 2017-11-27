@@ -4,15 +4,19 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: SchM_Types.h $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
  * $Date: 17/11/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-    Main executable code
+	Declaration of the Pins
+	SchM_TaskStateType
+	SchM_SchedulerStateType
+	SchM_TaskControlBlockType
+	SchM_SchedulerStatusType
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +35,114 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*Jorge Acevedo      |          1         |                                   */
+
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: SchM_Types.h  $
   ============================================================================*/
-
+#ifndef BSW_SERVICES_SCHM_SCHM_TYPES_H_
+#define BSW_SERVICES_SCHM_SCHM_TYPES_H_
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Std_Types.h"
 
-/* Constants and types  */
+#define LED10         9
+#define LED9          7
+#define LED8         17
+#define LED7  	     14
+#define LED6         15
+#define LED5         16
+#define LED4         14
+#define LED3          3
+#define LED2         16
+#define LED1         15
+#define LEDUp      		0
+#define LEDDown 			16
+#define AntiPinchButton 0
+#define UpButton				13
+#define DownButton 			12
+
+/* Constants and types */
 /*============================================================================*/
-
-
-
-/* Variables */
-/*============================================================================*/
-
-
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
+typedef enum
 {
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
+	SCHM_TASK_STATE_SUSPENDED,
+	SCHM_TASK_STATE_READY,
+	SCHM_TASK_STATE_RUNNING
+}SchM_TaskStateType;
 
-	/* Further code should not be reached */
-	for(;;) {
+typedef enum
+{
+	SCHM_UNINIT,
+	SCHM_INIT,
+	SCHM_IDLE,
+	SCHM_RUNNING,
+	SCHM_OVERLOAD,
+	SCHM_HALTED
+}SchM_SchedulerStateType;
 
-	}
+typedef struct
+{
+	SchM_TaskStateType SchM_TaskState;
+}SchM_TaskControlBlockType;
 
-	return (0);
-}
+typedef struct
+{
+	uint16_t	OsTickCounter;
+	SchM_SchedulerStateType SchM_SchedulerState;
+}SchM_SchedulerStatusType;
+
+enum{
+  ACTIVATED,
+  DESACTIVATED,
+  WINDOW_COMPLETELY_OPEN    =   (T_UBYTE) 0,
+  WINDOW_COMPLETELY_CLOSED  =   (T_UBYTE) 10,
+  START_TIME_COUNTER        =   (T_UBYTE) 0,
+  VALIDATION_SIGNAL_TIME    =   (T_UBYTE) 10,
+  MANUAL_FUNCTION_TIME      =   (T_UWORD) 500,
+  MODULE_BLOCKED_TIME       =   (T_UWORD) 5000,
+  CHANGE_WINDOW_STATE_TIME  =   (T_UWORD) 400
+}Constants;
+
+enum{
+  State1,
+  State2,
+  State3,
+  State4,
+  State5,
+  State6,
+  State7
+}States;
+
+typedef struct{
+  T_UWORD luw_TimeCounterValidation;
+  T_UWORD luw_TimeCounterLEDBarChange;
+  T_UBYTE lub_LEDBarState;
+  T_UBYTE lub_AntiPinchBlock;
+  T_UBYTE lub_FlagOneTouchUp;
+  T_UBYTE lub_FlagOneTouchDown;
+  T_UWORD luw_TimeCounterAntiPinch;
+  T_UBYTE lub_MovementDirection;
+  T_UBYTE gub_State;
+  T_UBYTE lub_Status;
+}VariablesType;
+
+enum{
+  UP,
+  DOWN,
+  NONE,
+  PINCH,
+  MOVEMENT
+}ButtonsandDirectionValues;
 
 
-
-/* Exported functions */
+/* Exported Variables */
 /*============================================================================*/
 
 
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+/* Exported functions prototypes */
+/*============================================================================*/
+#endif /* BSW_SERVICES_SCHM_SCHM_TYPES_H_ */

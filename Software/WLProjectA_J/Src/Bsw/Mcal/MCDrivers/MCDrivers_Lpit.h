@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
+ * $Source: LPIT.x $
+ * $Revision: 1 $
  * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Date: 26/10/17 $
  */
 /*============================================================================*/
-/* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/* DESCRIPTION :
+ *  Map of the Low Power Interrupt Timer                 */
+/**
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -31,61 +32,52 @@
 /*============================================================================*/
 /*  AUTHOR           |       VERSION      |          DESCRIPTION              */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/* Jorge Acevedo       |        1           |Configuration of the LPIT       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef LPIT_H
+#define LPIT_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Std_Types.h"
 
-/* Constants and types  */
+
+/* Constants and types */
+/*============================================================================*/
+typedef struct {
+    T_ULONG VERID;
+    T_ULONG PARAM;
+   T_ULONG MCR;
+   T_ULONG MSR;
+   T_ULONG MIER;
+   T_ULONG SETTEN;
+   T_ULONG CLRTEN;
+       T_UBYTE RESERVED_0[4];
+  struct {
+     T_ULONG TVAL;
+      T_ULONG CVAL;
+     T_ULONG TCTRL;
+         T_UBYTE RESERVED_0[4];
+  } TMR[4];
+} S_LPIT;
+
+#define LPIT_BASE_ADDRESS			 0x40037000u
+#define LPIT0 					 ((S_LPIT *)LPIT_BASE_ADDRESS)
+
+
+
+#define LPIT_MSR_TIF0_MASK                       0x1u
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
 
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */

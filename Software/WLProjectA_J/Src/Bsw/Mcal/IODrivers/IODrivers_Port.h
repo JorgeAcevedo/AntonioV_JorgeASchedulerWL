@@ -4,15 +4,16 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: Main.c $
- * $Revision: version 1 $
- * $Author: Jorge Acevedo $
- * $Date: 17/11/2017 $
+ * $Source: PORTS.h $
+ * $Revision: 1 $
+ * $Author: Jos� Antonio $
+ * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/*
-    Main executable code
+/** \file
+    PORT's configuration.
+
 */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
@@ -29,63 +30,58 @@
 /*============================================================================*/
 /*                    REUSE HISTORY - taken over from                         */
 /*============================================================================*/
-/*  AUTHOR           |       VERSION      |          DESCRIPTION              */
+/*  AUTHOR             |        VERSION     |  DESCRIPTION                    */
 /*----------------------------------------------------------------------------*/
-/*Jorge Acevedo      |          1         |  Main Function                    */
+/*JOS� ANTONIO V.T.    |           1        |PORTS cfg management and mapping */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: Main.c  $
+ * $Log: filename.h  $
   ============================================================================*/
+#ifndef PORTS_H
+#define PORTS_H
 
 /* Includes */
 /*============================================================================*/
-#include "ModuleConfig.h"
+#include "Std_Types.h"
 
-/* Constants and types  */
+/* Constants and types */
+/*============================================================================*/
+typedef struct{
+  T_ULONG PCR[32];
+  T_ULONG GPCLR;
+  T_ULONG GPCHR;
+  T_ULONG GICLR;
+  T_ULONG GICHR;
+  T_ULONG ISFR;
+  T_ULONG DFER;
+  T_ULONG DFCR;
+  T_ULONG DFWR;
+}S_PORT;
+
+#define PORTA_BASE_ADDRESS         0x40049000
+#define PORTB_BASE_ADDRESS         0x4004A000
+#define PORTC_BASE_ADDRESS         0x4004B000
+#define PORTD_BASE_ADDRESS         0x4004C000
+#define PORTE_BASE_ADDRESS         0x4004D000
+
+#define PORTA         ((S_PORT *)PORTA_BASE_ADDRESS)
+#define PORTB         ((S_PORT *)PORTB_BASE_ADDRESS)
+#define PORTC         ((S_PORT *)PORTC_BASE_ADDRESS)
+#define PORTD         ((S_PORT *)PORTD_BASE_ADDRESS)
+#define PORTE         ((S_PORT *)PORTE_BASE_ADDRESS)
+
+
+/* Exported Variables */
 /*============================================================================*/
 
 
-
-/* Variables */
+/* Exported functions prototypes */
 /*============================================================================*/
 
+void MuxGPIOPin (S_PORT* PTR, T_UBYTE PIN);
+void FilterPin  (S_PORT* PTR, T_UBYTE PIN);
+void PullDownPin (S_PORT* PTR, T_UBYTE PIN);
 
-
-/* Private functions prototypes */
-/*============================================================================*/
-
-
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-int main(void)
-{
-	NormalModeModuleInit();   				/* Init module at NormalRun, with output and inputs defined */
-	EnableInterruptions();        				/* Enable desired interrupts and priorities */
-	SchedulerInit();            		/* Scheduler Services Initialization  and start conditions*/
-	WindowLifterApp();							/* Start Window Lifter Application */
-
-	/* Further code should not be reached */
-	for(;;) {
-
-	}
-
-	return (0);
-}
-
-
-
-/* Exported functions */
-/*============================================================================*/
-
-
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif  /* Notice: the file ends with a blank new line to avoid compiler warnings */
