@@ -4,7 +4,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Cfg.h $
+ * $Source: Flags.h $
  * $Revision: 1 $
  * $Author: Jorge Acevedo $
  * $Date: 23/11/2017 $
@@ -12,11 +12,7 @@
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
 /*
-	Definition of SchM_TaskMaskType
-	SchM_TaskIDType
-	SchM_TaskOffsetType
-	SchM_ConfigType
-	const SchM_ConfigType SchedulerConfig
+	
 
 	This are user configurable variables that will be present for the user
 	modification.

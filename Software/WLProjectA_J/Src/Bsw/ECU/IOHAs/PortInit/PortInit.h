@@ -56,9 +56,9 @@
 /* Exported functions prototypes */
 /*============================================================================*/
 
-#include "Dio.h"
-#include "OutputCfg.h"
-#include "Port.h"
+#include "IODrivers_Dio.h"
+#include "IODrivers_OutputCfg.h"
+#include "IODrivers_Port.h"
 
 #define LED10         9
 #define LED9          7

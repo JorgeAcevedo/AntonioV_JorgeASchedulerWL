@@ -8,7 +8,7 @@
 #ifndef BSW_MCAL_WDOG_WDOG_H_
 #define BSW_MCAL_WDOG_WDOG_H_
 
-#include "Wdog.h"
+#include "MCDrivers_Wdog.h"
 
 void WDOG_disable (void);
 

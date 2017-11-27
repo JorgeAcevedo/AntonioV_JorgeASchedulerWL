@@ -4,7 +4,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Cfg.c $
+ * $Source: Flags.c $
  * $Revision: 1 $
  * $Author: Jorge Acevedo $
  * $Date: 23/11/2017$

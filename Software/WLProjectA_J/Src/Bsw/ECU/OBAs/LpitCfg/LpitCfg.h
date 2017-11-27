@@ -8,8 +8,8 @@
 #ifndef BSW_MCAL_LPIT_LPIT_H_
 #define BSW_MCAL_LPIT_LPIT_H_
 
-#include "Lpit.h"
-#include "OutputCfg.h"
+#include "MCDrivers_Lpit.h"
+#include "IODrivers_OutputCfg.h"
 
 void LPIT0_init ( tCallbackFunction Pit0Callback );
 void LPIT0_Start ( void );

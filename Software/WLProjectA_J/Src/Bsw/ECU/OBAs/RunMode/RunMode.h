@@ -8,7 +8,7 @@
 #ifndef BSW_MCAL_MCU_MCU_H_
 #define BSW_MCAL_MCU_MCU_H_
 
-#include "Clock.h"
+#include "MCDrivers_Clock.h"
 
 void SOSC_init_8MHz (void);
 void SPLL_init_160MHz (void);

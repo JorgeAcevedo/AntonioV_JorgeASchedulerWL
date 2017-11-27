@@ -8,7 +8,7 @@
 #ifndef BSW_MCAL_DIO_DIO_H_
 #define BSW_MCAL_DIO_DIO_H_
 
-#include "Dio.h"
+#include "IODrivers_Dio.h"
 
 typedef enum
 {

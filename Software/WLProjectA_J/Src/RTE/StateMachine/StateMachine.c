@@ -4,15 +4,15 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: filename.c $
+ * $Source: StateMachine.c $
  * $Revision: 1 $
  * $Author: Jos� Antonio $
  * $Date: 26/10/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
-/** \ReadPin.c
- * Functions to read PIN's value
+/*
+ * State Machine for the Window Lifter
 
 */
 /*============================================================================*/
