@@ -75,6 +75,7 @@
 #define AntiPinchButton 0
 #define UpButton				13
 #define DownButton 			12
+#define LEDAntiPinch     15
 
 
 /* DEfinir Botones*/

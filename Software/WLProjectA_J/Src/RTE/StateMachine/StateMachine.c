@@ -83,6 +83,7 @@ void StateMachine(VariablesType *Variables){
   // Standby
     case State1:
     	TurnOffIndicator(Variables);
+      Variables->lub_MovementDirection = NONE;
     break;
  //Signal Validation
     case State2:
@@ -117,15 +118,21 @@ void StateMachine(VariablesType *Variables){
 //Anti Pinch
     case State6: //PINCH
     SetAntiPinchBlock(Variables);
-    ClearOneTouchFlags(Variables);
-    Variables->lub_MovementDirection=DOWN;
+        ClearOneTouchFlags(Variables);
+        TurnOffIndicator(Variables);
+    	Variables->lub_MovementDirection = DOWN;
+    	TurnOnIndicator(Variables);
     break;
 //Block state
     case State7:
     if (MODULE_BLOCKED_TIME>Variables->luw_TimeCounterAntiPinch){
-      Variables->luw_TimeCounterAntiPinch++;
+    	TurnOffIndicator(Variables);
+        Variables->luw_TimeCounterAntiPinch++;
+        Variables->lub_MovementDirection = NONE;
+        TurnOnIndicator(Variables);
     }
     else if(MODULE_BLOCKED_TIME==Variables->luw_TimeCounterAntiPinch){
+      TurnOffIndicator(Variables);
       ClearAntiPinchBlock(Variables);
       Variables->luw_TimeCounterAntiPinch=START_TIME_COUNTER;
     }

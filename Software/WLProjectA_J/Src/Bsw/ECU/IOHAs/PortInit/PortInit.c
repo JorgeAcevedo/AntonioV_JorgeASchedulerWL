@@ -115,6 +115,8 @@ void PORT_init (void) {
   PTC->PDDR &= ~(1<<DownButton); /* Port D0: Data Direction= input */
   PORTC->PCR[DownButton] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
   PORTC->PCR[DownButton] |= 0x00000010u; /*Enable filter*/
+
+
   //------------------PORTD------------------------------------------------------
   PCC-> PCCn[PCC_PORTD_INDEX] = PCC_PCCn_CGC_MASK;
   //Initializate LEDUp
@@ -125,7 +127,9 @@ void PORT_init (void) {
   PTD->PDDR |= 1<<LEDDown; /* Port D0: Data Direction= output */
   PORTD->PCR[LEDDown] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
   PTD->PSOR |= 1<<LEDDown; /* Clear pin*/
-
+  PTD->PDDR |= 1<<LEDAntiPinch; /* Port D0: Data Direction= output */
+  PORTD->PCR[LEDAntiPinch] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PTD->PSOR |= 1<<LEDAntiPinch; /* Clear pin*/
 
   //------------------PORTE------------------------------------------------------
   //OUTPUTS********************************************************************
@@ -142,7 +146,10 @@ void PORT_init (void) {
   PTE->PDDR |= 1<<LED1; /* Port D0: Data Direction= output */
   PORTE->PCR[LED1] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
   PTE->PSOR |= 1<<LED1; /* Clear pin*/
-
+  //INPUTS***********************************************
+  PTE->PDDR &= ~(1<<AntiPinchButton); /* Port D0: Data Direction= input */
+  PORTE->PCR[AntiPinchButton] = 0x00000100; /* Port D0: MUX = ALT1, GPIO (to blue LED on EVB) */
+  PORTE->PCR[AntiPinchButton] |= 0x00000010u; /*Enable filter*/
 }
 
 

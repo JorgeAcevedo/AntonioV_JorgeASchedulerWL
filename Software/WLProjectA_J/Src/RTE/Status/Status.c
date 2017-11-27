@@ -96,7 +96,10 @@ Variables->lub_MovementDirection = DOWN;
 Variables->lub_Status = MOVEMENT;
   }
   else if(ButtonPress(PINCH)){
-Variables->lub_Status = PINCH;
+		if(UP == Variables->lub_MovementDirection){
+				  Variables->lub_Status = PINCH;
+			  }
+			  else{Variables->lub_Status = NONE;}
   }
   else if(ButtonPress(UP)){
 Variables->lub_MovementDirection = UP;

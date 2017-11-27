@@ -99,6 +99,7 @@ void WindowSimulation(VariablesType *Variables){
     	else{
     		Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
     		ClearOneTouchFlags(Variables);
+        Variables->lub_MovementDirection = NONE;
     	}
     break;
     case DOWN:
@@ -108,6 +109,7 @@ void WindowSimulation(VariablesType *Variables){
     	else{
     		Variables->luw_TimeCounterLEDBarChange = START_TIME_COUNTER;
     		ClearOneTouchFlags(Variables);
+        Variables->lub_MovementDirection = NONE;
     	}
     break;
   }
@@ -121,7 +123,8 @@ void TurnOnIndicator(VariablesType *Variables){
     case DOWN:
     Dio_PortClearPin(PORTCH_D, LEDDown);
     break;
-    case PINCH:
+    case NONE:
+    Dio_PortClearPin(PORTCH_D, LEDAntiPinch);
     break;
   }
 }
@@ -129,6 +132,7 @@ void TurnOnIndicator(VariablesType *Variables){
 void TurnOffIndicator(VariablesType *Variables){
     Dio_PortSetPin(PORTCH_D, LEDUp);
     Dio_PortSetPin(PORTCH_D, LEDDown);
+    Dio_PortSetPin(PORTCH_D, LEDAntiPinch);
 }
 
 void WindowControl (VariablesType *Variables){
